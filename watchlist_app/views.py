@@ -1,4 +1,5 @@
-from django.shortcuts import render
+"""
+ from django.shortcuts import render
 from .models import Movie
 from django.http import JsonResponse
 
@@ -21,4 +22,5 @@ def movie_detail(request,pk):
     }
     return JsonResponse(data)
     
+"""
     

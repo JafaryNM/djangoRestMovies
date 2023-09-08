@@ -1,15 +1,29 @@
 from rest_framework import serializers
-from watchlist_app.models import Movie
+from watchlist_app.models import WatchList,StreamPlatform
 
 
-class MovieSerializer(serializers.ModelSerializer):
+class WatchlistSerializer(serializers.ModelSerializer):
     class Meta:
-        len_name=serializers.SerializerMethodField()
-        model=Movie
-       # exclude=['active']
+        model=WatchList
         fields='__all__'
 
-########### VALIDATION ##################
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=StreamPlatform
+        fields="__all__"
+
+
+
+
+
+
+
+
+
+
+
+"""
+    ########### VALIDATION ##################
 
     def get_len_name(self,object):
         return len(object.name)
@@ -26,11 +40,7 @@ class MovieSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Name is too short!')
         return value
     
-
-
-
-
-"""
+    
     def name_length(value):
     if len(value)<2:
         raise serializers.ValidationError('Name is too short!')
