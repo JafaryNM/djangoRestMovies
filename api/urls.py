@@ -5,8 +5,8 @@ from .views import WatchListAV,WatchMovieDetailAV,StreamPlatformDetailAV,StreamP
 
 urlpatterns=[
     path('api/', WatchListAV.as_view(),name='api_list' ),
-    path('<int:pk>', StreamPlatformDetailAV.as_view(), name='movie_details'),
+    path('<int:pk>', WatchListAV.as_view(), name='movie_details'),
     path('stream/', StreamPlatformListAV.as_view(), name='stream_list'),
-  
+    path('stream/<int:pk>',StreamPlatformDetailAV.as_view(), name='stream_detai')
     
 ]
