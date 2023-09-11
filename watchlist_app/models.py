@@ -26,13 +26,13 @@ class Review(models.Model):
     description=models.CharField(max_length=200, null=True)
     created=models.DateField(auto_now_add=True)
     updated=models.DateField(auto_now=True)
-    WatchList=models.ForeignKey(WatchList,models.CASCADE, related_name='reviews')
+    watchlist=models.ForeignKey(WatchList,models.CASCADE, related_name='reviews')
     active=models.BooleanField(default=True)
     
     def __str__(self):
         
         # Convert into string name
         
-        return str(self.review) + " "  + self.WatchList.title
+        return str(self.review) + " | "  + self.WatchList.title
     
     

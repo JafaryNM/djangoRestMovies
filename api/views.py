@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from watchlist_app.models import WatchList,StreamPlatform,Review
 from .serializers import WatchlistSerializer,StreamPlatformSerializer,ReviewSerializer
 from rest_framework.response import Response
@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 #from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import viewsets
+#from rest_framework import mixins
 # Create your views here.
 
 
@@ -100,6 +101,51 @@ class StreamPlatformDetailAV(APIView):
 
 ############ REVIEW APIS #####################
 
+class ReviewList(generics.ListAPIView):
+
+    serializer_class=ReviewSerializer
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+    
+        return  Review.object.filter(watchlist=pk)
+
+
+class ReviewCreate(generics.CreateAPIView):
+    
+    serializer_class=ReviewSerializer
+    
+    def perform_create(self, serializer):
+        pk=self.kwargs.get('pk')
+        movie=WatchList.object.get(pk=pk)
+        serializer.save(watchlist=movie)
+        
+
+
+
+class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Review.objects.all()
+    serializer_class=ReviewSerializer
+    
+    
+
+class StreamPlatformTest(viewsets.ViewSet):
+    
+    def list(self,request):
+        queryset=StreamPlatform.object.all()
+        serializer=StreamPlatformSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrive(sel,request,pk):
+        queryset=StreamPlatform.object.all()
+        stream=get_object_or_404(queryset,pk=pk)
+        serializer=StreamPlatformSerializer(stream)
+        return Response(serializer.data)
+        
+
+
+
+"""
 class ReviewList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     
     queryset=Review.objects.all()
@@ -119,6 +165,7 @@ class ReviewDetail(mixins.RetrieveModelMixin,generics.GenericAPIView):
         return self.retrieve(request,*args,**kwargs)
 
 
+"""
 
 
 """
