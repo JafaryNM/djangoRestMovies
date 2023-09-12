@@ -1,12 +1,12 @@
 from django.urls import path,include
 #from .views import movies_list,
 from rest_framework.routers import DefaultRouter
-from .views import WatchListAV,WatchMovieDetailAV,StreamPlatformDetailAV,StreamPlatformListAV,ReviewList,ReviewDetail,ReviewCreate,StreamPlatformTest
+from .views import WatchListAV,WatchMovieDetailAV,StreamPlatformDetailAV,StreamPlatformVS,ReviewList,ReviewDetail,ReviewCreate
 
 
 router=DefaultRouter()
 
-router.register('stream',StreamPlatformTest, basename='stream')
+router.register('stream',StreamPlatformVS, basename='stream')
 
 urlpatterns=[
     path('api/', WatchListAV.as_view(),name='api_list' ),
