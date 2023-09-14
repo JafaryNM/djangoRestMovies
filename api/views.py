@@ -3,7 +3,8 @@ from watchlist_app.models import WatchList,StreamPlatform,Review
 from .serializers import WatchlistSerializer,StreamPlatformSerializer,ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-#from rest_framework.decorators import api_view
+#from rest_framework.decorators import api_vie
+from rest_framework.exceptions import ValidationError
 from rest_framework import status
 from rest_framework import generics
 from rest_framework import viewsets
@@ -107,28 +108,36 @@ class ReviewList(generics.ListAPIView):
     
     def get_queryset(self):
         pk = self.kwargs['pk']
-    
         return  Review.object.filter(watchlist=pk)
 
 
 class ReviewCreate(generics.CreateAPIView):
-    
+    queryset = Review.objects.all()
     serializer_class=ReviewSerializer
     
     def perform_create(self, serializer):
         pk=self.kwargs.get('pk')
-        movie=WatchList.object.get(pk=pk)
-        serializer.save(watchlist=movie)
-        
-
-
+        movie=WatchList.objects.get(pk=pk)
+        review_user=self.request.user
+        queryset=Review.objects.filter(review_user=review_user,watchlist=movie)
+        if queryset.exists():
+            raise ValidationError('You have reviewed this movie')
+        serializer.save(watchlist=movie,review_user=review_user)
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    
     queryset=Review.objects.all()
     serializer_class=ReviewSerializer
     
+       
+class StreamPlatformVS(viewsets.ModelViewSet):
     
+    queryset=StreamPlatform.objects.all()
+    serializer_class=StreamPlatformSerializer
 
+
+
+"""
 class StreamPlatformTest(viewsets.ViewSet):
     
     def list(self,request):
@@ -136,16 +145,12 @@ class StreamPlatformTest(viewsets.ViewSet):
         serializer=StreamPlatformSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    def retrive(sel,request,pk):
+    def retrive(self,request,pk):
         queryset=StreamPlatform.object.all()
         stream=get_object_or_404(queryset,pk=pk)
         serializer=StreamPlatformSerializer(stream)
         return Response(serializer.data)
         
-
-
-
-"""
 class ReviewList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     
     queryset=Review.objects.all()
