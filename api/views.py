@@ -135,7 +135,14 @@ class StreamPlatformVS(viewsets.ModelViewSet):
     queryset=StreamPlatform.objects.all()
     serializer_class=StreamPlatformSerializer
 
+<<<<<<< HEAD
 
+=======
+class StreamPlatformVS (viewsets.ModelViewSet):
+    queryset=StreamPlatform.objects.all()
+    serializer_class=StreamPlatformSerializer
+    
+>>>>>>> 7f8a07826bb2de6e8d98c0272d59484f74cbe5c8
 
 """
 class StreamPlatformTest(viewsets.ViewSet):
@@ -146,11 +153,33 @@ class StreamPlatformTest(viewsets.ViewSet):
         return Response(serializer.data)
     
     def retrive(self,request,pk):
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 7f8a07826bb2de6e8d98c0272d59484f74cbe5c8
         queryset=StreamPlatform.object.all()
         stream=get_object_or_404(queryset,pk=pk)
         serializer=StreamPlatformSerializer(stream)
         return Response(serializer.data)
+    
+    def create(self,request):
+    
+        serializer=StreamPlatformSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response (serializer.data)
+        else:
+            return Response (serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+        
+<<<<<<< HEAD
+=======
+
+"""
+
+
+"""
+>>>>>>> 7f8a07826bb2de6e8d98c0272d59484f74cbe5c8
 class ReviewList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     
     queryset=Review.objects.all()

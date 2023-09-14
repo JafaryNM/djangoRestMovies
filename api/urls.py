@@ -1,7 +1,11 @@
 from django.urls import path,include
 #from .views import movies_list,
 from rest_framework.routers import DefaultRouter
+<<<<<<< HEAD
 from .views import WatchListAV,WatchMovieDetailAV,StreamPlatformDetailAV,StreamPlatformListAV,ReviewList,ReviewDetail,StreamPlatformVS,ReviewCreate
+=======
+from .views import WatchListAV,WatchMovieDetailAV,StreamPlatformDetailAV,StreamPlatformVS,ReviewList,ReviewDetail,ReviewCreate
+>>>>>>> 7f8a07826bb2de6e8d98c0272d59484f74cbe5c8
 
 
 router=DefaultRouter()
