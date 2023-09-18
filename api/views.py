@@ -8,6 +8,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework import status
 from rest_framework import generics
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 #from rest_framework import mixins
 # Create your views here.
 
@@ -105,6 +106,7 @@ class StreamPlatformDetailAV(APIView):
 class ReviewList(generics.ListAPIView):
 
     serializer_class=ReviewSerializer
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -125,7 +127,7 @@ class ReviewCreate(generics.CreateAPIView):
         serializer.save(watchlist=movie,review_user=review_user)
  
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    
+    permission_classes=[IsAuthenticated]
     queryset=Review.objects.all()
     serializer_class=ReviewSerializer
     
