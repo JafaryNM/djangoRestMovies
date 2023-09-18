@@ -123,7 +123,7 @@ class ReviewCreate(generics.CreateAPIView):
         if queryset.exists():
             raise ValidationError('You have reviewed this movie')
         serializer.save(watchlist=movie,review_user=review_user)
-
+ 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     
     queryset=Review.objects.all()
@@ -135,14 +135,6 @@ class StreamPlatformVS(viewsets.ModelViewSet):
     queryset=StreamPlatform.objects.all()
     serializer_class=StreamPlatformSerializer
 
-<<<<<<< HEAD
-
-=======
-class StreamPlatformVS (viewsets.ModelViewSet):
-    queryset=StreamPlatform.objects.all()
-    serializer_class=StreamPlatformSerializer
-    
->>>>>>> 7f8a07826bb2de6e8d98c0272d59484f74cbe5c8
 
 """
 class StreamPlatformTest(viewsets.ViewSet):
