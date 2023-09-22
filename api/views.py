@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from api.permissions import AdminOrReadyOnly,ReviewUserOrReadyOnly
 #from rest_framework import mixins
 # Create your views here.
 
@@ -127,7 +128,7 @@ class ReviewCreate(generics.CreateAPIView):
         serializer.save(watchlist=movie,review_user=review_user)
  
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[IsAuthenticated]
+    permission_classes=[ReviewUserOrReadyOnly]
     queryset=Review.objects.all()
     serializer_class=ReviewSerializer
     
