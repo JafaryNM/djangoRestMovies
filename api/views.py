@@ -3,15 +3,12 @@ from watchlist_app.models import WatchList,StreamPlatform,Review
 from .serializers import WatchlistSerializer,StreamPlatformSerializer,ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-#from rest_framework.decorators import api_vie
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from api.permissions import AdminOrReadyOnly,ReviewUserOrReadyOnly
-#from rest_framework import mixins
-# Create your views here.
 
 
 
