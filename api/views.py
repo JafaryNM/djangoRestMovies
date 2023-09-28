@@ -136,7 +136,7 @@ class ReviewCreate(generics.CreateAPIView):
         serializer.save(watchlist=movie,review_user=review_user)
  
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[ReviewUserOrReadyOnly]
+    permission_classes=[IsAuthenticated]
     queryset=Review.objects.all()
     serializer_class=ReviewSerializer
     
@@ -145,6 +145,7 @@ class StreamPlatformVS(viewsets.ModelViewSet):
     
     queryset=StreamPlatform.objects.all()
     serializer_class=StreamPlatformSerializer
+    permission_classes=[IsAuthenticated]
 
 
 """
